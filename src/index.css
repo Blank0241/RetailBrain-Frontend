@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-ink-900 text-mist-100 font-body antialiased;
+  background-image: theme('backgroundImage.grid-glow');
+  background-attachment: fixed;
+}
+
+::selection { background: rgba(59,130,246,0.35); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1B2740; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #26324D; }
+
+:focus-visible {
+  outline: 2px solid #5B9CFF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .glass {
+    @apply bg-ink-800/60 backdrop-blur-xl border border-white/[0.06] shadow-glass;
+  }
+  .glass-card {
+    @apply glass rounded-xl2 bg-card-sheen;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-b from-brand-400 to-brand-600 text-white font-medium px-5 py-2.5 shadow-glow transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] text-mist-100 font-medium px-5 py-2.5 transition-all duration-200 hover:bg-white/[0.07] hover:border-white/20 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-mist-300 font-medium px-4 py-2 transition-all duration-200 hover:text-mist-100 hover:bg-white/[0.05];
+  }
+  .input-field {
+    @apply w-full rounded-lg bg-ink-950/60 border border-white/10 px-3.5 py-2.5 text-sm text-mist-100 placeholder:text-mist-400/60 outline-none transition-colors duration-150 focus:border-brand-500/60 focus:ring-1 focus:ring-brand-500/40;
+  }
+  .label-sm {
+    @apply text-xs font-medium text-mist-300 tracking-wide;
+  }
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+  .eyebrow {
+    @apply text-xs font-mono uppercase tracking-[0.18em] text-cyan-400/80;
+  }
+}
