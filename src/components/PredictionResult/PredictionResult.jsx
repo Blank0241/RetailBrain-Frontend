@@ -28,7 +28,7 @@ export default function PredictionResult({ result, onRecordOutcome, isRecording 
     <div className="glass-card p-6 lg:p-8 animate-fadeUp">
       <div className="flex flex-col md:flex-row gap-8 md:items-center">
         <div className="shrink-0 flex justify-center">
-          <ConfidenceRing value={result.confidence} size={128} strokeWidth={9} />
+          <ConfidenceRing value={result.confidence} size={128} strokeWidth={9} label="Purchase Probability" />
         </div>
 
         <div className="flex-1 min-w-0">
@@ -38,6 +38,9 @@ export default function PredictionResult({ result, onRecordOutcome, isRecording 
           <h2 className={`font-display text-2xl font-semibold mt-1 ${isPurchaseLikely ? 'text-good' : 'text-bad'}`}>
             {result.prediction}
           </h2>
+          <p className="text-xs text-mist-500 mt-1 max-w-md">
+            This is an estimated likelihood based on historical behavior, not a guarantee of what the customer will do.
+          </p>
           <div className="flex flex-wrap items-center gap-3 mt-3 text-sm text-mist-400">
             <button onClick={copyId} className="flex items-center gap-1.5 font-mono text-xs hover:text-mist-100 transition-colors">
               {copied ? <Check size={13} className="text-good" /> : <Copy size={13} />}
@@ -49,16 +52,10 @@ export default function PredictionResult({ result, onRecordOutcome, isRecording 
 
           <div className="flex flex-wrap gap-2 mt-4">
             <span className="pill bg-white/[0.05] text-mist-300 border border-white/10">
-              {result.inputData.customerId}
+              Customer: {result.inputData.customerId}
             </span>
             <span className="pill bg-white/[0.05] text-mist-300 border border-white/10">
-              {result.inputData.productCategory}
-            </span>
-            <span className="pill bg-white/[0.05] text-mist-300 border border-white/10">
-              ₹{result.inputData.orderValue?.toLocaleString('en-IN')}
-            </span>
-            <span className="pill bg-white/[0.05] text-mist-300 border border-white/10">
-              {result.inputData.location}
+              Product: {result.inputData.itemId}
             </span>
           </div>
         </div>

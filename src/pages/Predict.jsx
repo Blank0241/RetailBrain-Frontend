@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, AlertTriangle } from 'lucide-react';
 import AppLayout from '../components/AppLayout';
 import PredictionForm from '../components/PredictionForm/PredictionForm';
 import PredictionResult from '../components/PredictionResult/PredictionResult';
@@ -10,12 +10,16 @@ export default function Predict() {
   const [result, setResult] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (inputData) => {
     setIsSubmitting(true);
+    setError(null);
     try {
       const record = await createPrediction(inputData);
       setResult(record);
+    } catch (err) {
+      setError(err.message || 'Something went wrong while generating this prediction.');
     } finally {
       setIsSubmitting(false);
     }
@@ -34,7 +38,7 @@ export default function Predict() {
   return (
     <AppLayout
       title="New Prediction"
-      subtitle="Enter customer, order, and behavior details to generate a prediction."
+      subtitle="Select a customer and product to generate a purchase prediction."
       actions={
         result && (
           <button onClick={() => setResult(null)} className="btn-secondary text-sm py-2 px-4">
@@ -50,7 +54,15 @@ export default function Predict() {
       ) : result ? (
         <PredictionResult result={result} onRecordOutcome={handleRecordOutcome} isRecording={isRecording} />
       ) : (
-        <PredictionForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
+        <div className="flex flex-col gap-4">
+          {error && (
+            <div className="glass-card p-4 flex items-start gap-3 border border-bad/30">
+              <AlertTriangle size={16} className="text-bad shrink-0 mt-0.5" />
+              <p className="text-sm text-mist-300">{error}</p>
+            </div>
+          )}
+          <PredictionForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
+        </div>
       )}
     </AppLayout>
   );

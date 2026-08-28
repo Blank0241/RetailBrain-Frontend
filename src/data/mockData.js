@@ -18,37 +18,19 @@ export const CUSTOMER_SEGMENTS = ['New', 'Regular', 'Loyal', 'At Risk', 'VIP'];
 // -----------------------------
 // Prediction form configuration
 // -----------------------------
-// Kept data-driven so the ML team can change fields without touching UI code.
+// Kept data-driven so this can evolve without touching UI code. The final
+// Random Forest model's 19 features (historical view/cart/transaction
+// counts, etc.) are internal model inputs derived server-side from a
+// customer/item pair — they are NOT collected here. This form only collects
+// the two identifiers needed to identify which customer/product to predict
+// for; see backend/src/services/mlService.js for the feature derivation
+// contract.
 export const PREDICTION_FORM_CONFIG = [
   {
-    section: 'Customer Information',
+    section: 'Customer & Product Selection',
     fields: [
       { name: 'customerId', label: 'Customer ID', type: 'text', placeholder: 'CUST-10234', required: true },
-      { name: 'age', label: 'Age', type: 'number', placeholder: '32', required: true, min: 18, max: 100 },
-      { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female', 'Other'] },
-      { name: 'location', label: 'Location', type: 'select', required: true, options: CITIES },
-      { name: 'segment', label: 'Customer Segment', type: 'select', required: true, options: CUSTOMER_SEGMENTS },
-    ],
-  },
-  {
-    section: 'Order Information',
-    fields: [
-      { name: 'productCategory', label: 'Product Category', type: 'select', required: true, options: PRODUCT_CATEGORIES },
-      { name: 'orderValue', label: 'Order Value (₹)', type: 'number', placeholder: '2499', required: true, min: 0 },
-      { name: 'quantity', label: 'Quantity', type: 'number', placeholder: '2', required: true, min: 1 },
-      { name: 'discount', label: 'Discount (%)', type: 'number', placeholder: '10', required: false, min: 0, max: 100 },
-      { name: 'paymentMethod', label: 'Payment Method', type: 'select', required: true, options: PAYMENT_METHODS },
-      { name: 'shippingMethod', label: 'Shipping Method', type: 'select', required: true, options: SHIPPING_METHODS },
-    ],
-  },
-  {
-    section: 'Customer Behavior',
-    fields: [
-      { name: 'previousOrders', label: 'Previous Orders', type: 'number', placeholder: '14', required: true, min: 0 },
-      { name: 'previousSpending', label: 'Previous Spending (₹)', type: 'number', placeholder: '48500', required: true, min: 0 },
-      { name: 'avgOrderValue', label: 'Average Order Value (₹)', type: 'number', placeholder: '3464', required: true, min: 0 },
-      { name: 'returnCount', label: 'Return Count', type: 'number', placeholder: '1', required: false, min: 0 },
-      { name: 'customerTenure', label: 'Customer Tenure (months)', type: 'number', placeholder: '18', required: true, min: 0 },
+      { name: 'itemId', label: 'Product / Item ID', type: 'text', placeholder: 'ITEM-48213', required: true },
     ],
   },
 ];

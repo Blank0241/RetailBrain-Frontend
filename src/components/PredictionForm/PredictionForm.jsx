@@ -85,10 +85,14 @@ export default function PredictionForm({ onSubmit, isSubmitting }) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-8">
       {PREDICTION_FORM_CONFIG.map((section) => (
         <div key={section.section} className="glass-card p-6">
-          <h3 className="font-display text-sm font-semibold text-mist-100 mb-4 flex items-center gap-2">
+          <h3 className="font-display text-sm font-semibold text-mist-100 mb-2 flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
             {section.section}
           </h3>
+          <p className="text-sm text-mist-400 mb-4 max-w-2xl">
+            Pick the customer and product you want a purchase prediction for. RetailBrain looks up each
+            one's interaction history automatically — there's nothing else to fill in by hand.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {section.fields.map((field) => (
               <Field
