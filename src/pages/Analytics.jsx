@@ -26,10 +26,7 @@ export default function Analytics() {
 
   return (
     <AppLayout title="Analytics" subtitle="Model performance across all evaluated predictions.">
-      <div className="flex items-center gap-2 mb-6 pill bg-amber-500/10 text-amber-400 w-fit">
-        <FlaskConical size={13} />
-        Demo Analytics — backend and live model not yet connected
-      </div>
+      
 
       {isLoading ? (
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
